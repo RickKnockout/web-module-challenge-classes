@@ -51,7 +51,7 @@ class Person {
   }
   eat(food){
     if (this.stomach.length<10){
-      this.stomach.push[food];
+      this.stomach.push(food);
     }
   }
   poop(){
@@ -77,36 +77,33 @@ class Person {
 */
 
 class Car {
-  constructor(model, milesPerGallon) {
-      this.model = model;
-      this.milesPerGallon = milesPerGallon;
-      this.tank = 0;
-      this.odometer = 0;
-  }
-  fill(gallons) {
-      this.tank = this.tank + gallons;
-  }
-  drive(distance) {
-      let maxDistance = this.tank * this.milesPerGallon;
-      console.log(`maxDistance: ${maxDistance}`)
-      console.log(`this.tank = ${this.tank}`)
-      if (this.tank > 0) {
-          if (maxDistance >= this.distance) {
-              this.odometer = this.odometer + this.distance;
-              console.log(this.tank);
-              this.tank = this.tank - (this.distance / this.milesPerGallon);
-              console.log(this.odometer, this.tank);
-          } else {
-              this.odometer = this.odometer + maxDistance;
-              this.tank = this.tank - (maxDistance / this.milesPerGallon);
-              console.log(`I ran out of fuel at ${this.odometer} miles!`)
-              return `I ran out of fuel at ${this.odometer} miles!`;
-          }
-      } else {
-          console.log(`I ran out of fuel at ${this.odometer} miles!`)
-          return `I ran out of fuel at ${this.odometer} miles!`;
-      }
-  }
+	constructor(model, milesPerGallon) {
+		this.model = model;
+		this.milesPerGallon = milesPerGallon;
+		this.tank = 0;
+		this.odometer = 0;
+	}
+	fill(gallons) {
+		this.tank = this.tank + gallons;
+	}
+	drive(distance) {
+		let maxDistance = this.tank * this.milesPerGallon;
+		let enoughFuel = function(maxD, thisD) {
+			if (maxD >= thisD) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		if (enoughFuel(maxDistance, distance)) {
+			this.odometer = this.odometer + distance;
+			this.tank = this.tank - (distance / this.milesPerGallon);
+		} else {
+			this.odometer = this.odometer + maxDistance;
+			this.tank = this.tank - (maxDistance / this.milesPerGallon);
+			return `I ran out of fuel at ${this.odometer} miles!`;
+		}
+	}
 }
 /*
   TASK 3
