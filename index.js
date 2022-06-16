@@ -77,9 +77,37 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model, milesPerGallon) {
+      this.model = model;
+      this.milesPerGallon = milesPerGallon;
+      this.tank = 0;
+      this.odometer = 0;
+  }
+  fill(gallons) {
+      this.tank = this.tank + gallons;
+  }
+  drive(distance) {
+      let maxDistance = this.tank * this.milesPerGallon;
+      console.log(`maxDistance: ${maxDistance}`)
+      console.log(`this.tank = ${this.tank}`)
+      if (this.tank > 0) {
+          if (maxDistance >= this.distance) {
+              this.odometer = this.odometer + this.distance;
+              console.log(this.tank);
+              this.tank = this.tank - (this.distance / this.milesPerGallon);
+              console.log(this.odometer, this.tank);
+          } else {
+              this.odometer = this.odometer + maxDistance;
+              this.tank = this.tank - (maxDistance / this.milesPerGallon);
+              console.log(`I ran out of fuel at ${this.odometer} miles!`)
+              return `I ran out of fuel at ${this.odometer} miles!`;
+          }
+      } else {
+          console.log(`I ran out of fuel at ${this.odometer} miles!`)
+          return `I ran out of fuel at ${this.odometer} miles!`;
+      }
+  }
 }
-
 /*
   TASK 3
     - Write a Lambdasian class.
