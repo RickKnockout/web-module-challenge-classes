@@ -156,9 +156,19 @@ class Instructor extends Lambdasian {
     return `Today we are learning about ${subject}`;
   }
   grade(student, subject){
-    return `${student} receives a perfect score on ${subject}`;
+    return `${student.name} receives a perfect score on ${subject}`;
   }
 }
+
+const ins1 = new Instructor({
+  specialty: "Specialty 1",
+  favLanguage: "English lol",
+  catchPhrase: "Lets goooo"
+});
+
+console.log(ins1.grade({
+  name: "rick"
+}, "Javascript"));
 
 /*
   TASK 5
@@ -176,9 +186,32 @@ class Instructor extends Lambdasian {
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
 
-class Student {
-   
+class Student extends Lambdasian {
+	constructor(obj) {
+		super(obj);
+		this.previousBackground = obj.previousBackground;
+		this.className = obj.className;
+		this.favSubjects = obj.favSubjects;
+    this.grade = obj.grade;
+	}
+	listSubjects(favSubjects) {
+		let str1 = "Loving ";
+    let str2 = String(this.favSubjects);
+		str2 = str2.replace(/,/g, ', ');
+		str1 += str2;
+		str1 += "!";
+    console.log(str1);
+		return str1;
+	}
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`;
+  }
 }
+
+// If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 
 /*
   TASK 6
@@ -194,9 +227,48 @@ class Student {
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
 
-class ProjectManager {
-   
+class ProjectManager extends Instructor{
+  constructor(obj){
+    super(obj);
+    this.gradClassName = obj.gradClassName;
+    this.favInstructor = obj.favInstructor;
+  }
+  standUp(chan){
+    return `${this.name} announces to ${chan}, @channel standy times!`;
+  }
+  debugsCode(obj, subject){
+    return `${this.name} debugs ${obj.name}'s code on ${subject}`;
+  }
 }
+
+const student1 = new Student({
+  name: 'Rick',
+  age: 32,
+  location: 'California',
+  specialty: 'None',
+  favLanguage: 'C#',
+  catchPhrase: 'Lets go baby!',
+  previousBackground: 'CNC Programming',
+  className: 'PLT 2161',
+  favSubjects: ['Math', 'Science', 'Typing']
+  })
+
+const pm1 = new ProjectManager({
+  name: 'John',
+  age: 32,
+  location: 'California',
+  specialty: 'None',
+  favLanguage: 'C#',
+  catchPhrase: 'Lets go baby!',
+  previousBackground: 'CNC Programming',
+  className: 'PLT 2161',
+  favSubjects: ['Math', 'Science', 'Typing'],
+  gradClassName: "CS1",
+  favInstructor: "Bob"
+});
+
+console.log(pm1.debugsCode(student1, "Javascript"));
+console.log(pm1.standUp("Test Chan 1"));
 
 /*
   STRETCH PROBLEM (no tests!)
